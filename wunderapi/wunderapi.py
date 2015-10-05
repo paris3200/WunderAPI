@@ -8,7 +8,7 @@ class WunderAPI():
     Weather Underground API wrapper.  Requires a developer api_key from weather
     underground.
     """
-    def __init__(self, api_key, location, units='f'):
+    def __init__(self, api_key, location, units='english'):
         """
         :param api_key: Developer api key.
         :param location: Zipcode of weatherstation.
