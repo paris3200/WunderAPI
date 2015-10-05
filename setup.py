@@ -1,6 +1,10 @@
 #!usr/bin/python
 
-from distutils.core import setup
+try:
+    from setuptools import setup
+except ImportError:
+    from distutils.core import setup
+
 
 setup(
     name='wunderapi',
@@ -10,11 +14,13 @@ setup(
     author_email='paris3200@gmail.com',
     package='wunderapi',
     package_dir={'': 'wunderapi'},
-    url='URL to get it at.',
-    install_requires=['nose', 'Click', 'Requests'],
+    url='github',
+    install_requires=['Click', 'Requests'],
+    test_suite='nose.collector',
+    test_requires=['coverage', 'nose'],
     entry_points={
         'console_scripts': [
-            'wunder=wunderapi:cli'
+            'wunderapi=wunderapi:cli'
         ],
     },
 )
