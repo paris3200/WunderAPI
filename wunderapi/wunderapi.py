@@ -1,11 +1,9 @@
-#!/usr/bin/python
-import click
+#!/usr/bin/env python
 import requests
 import os
 
 
-
-class WunderAPI():
+class Wunderapi():
     """
     Weather Underground API wrapper.  Requires a developer api_key from weather
     underground.
@@ -55,34 +53,13 @@ class WunderAPI():
         """ Prints a summary of the current conditions. """
         result = self.get('conditions')
         result = result['current_observation']
-        conditions = "\nCurrent weather for %s" % \
-                    result['display_location']['full']
-        conditions = conditions + '\n'
-        conditions += "%s and %s \n" % \
-                    (self.get_temp(), result['weather'])
-        conditions += "Winds: %s \n" % (result['wind_string'])
-        conditions += "Relative Humidity: %s \n" % \
-                    (result['relative_humidity'])
+        conditions = """
+        \n Current weather for %s \n
+        %s and %s \n
+        Winds: %s \n
+        Relative Humidity: %s \n
+        """ % (result['display_location']['full'], self.get_temp(), \
+                result['weather'], result['wind_string'], result['relative_humidity'])
+        
         print(conditions)
 
-
-@click.command()
-@click.option('--conditions', '-c', multiple=True, is_flag=True, required=False,
-              help="Returns the current conditions.")
-@click.option('--forecast', is_flag=True, required=False,
-              help="Returns the forecast.")
-@click.option('--temp', is_flag=True, required=False,
-              help="Returns the temperature.")
-@click.option('--location', required=False,
-              help="Zipcode of location")
-@click.option('--units', '-u', multiple=True, required=False,
-              help="Units {english, metric} Defaults to english")
-def cli(conditions, forecast, temp, location, units):
-    """Command line interface for the weather underground API."""
-    api = WunderAPI('36f5a21f2a7c691c', '27018', 'F')
-    if conditions:
-        api.print_conditions()
-    elif forecast:
-        pass
-    elif temp:
-        api.print_temp()
