@@ -16,6 +16,6 @@ setup(
     test_requires=['coverage', 'nose'],
     test_suite='nose.collector',
     entry_points={
-        'console_scripts': ['weatherapi = wunderapi.cli:main'],
+        'console_scripts': ['wunderapi = wunderapi.cli:main'],
         }
 )
