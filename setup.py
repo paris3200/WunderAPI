@@ -16,8 +16,8 @@ setup(
     package_dir={'': 'wunderapi'},
     url='https://github.com/paris3200/wunderapi',
     install_requires=['Click', 'Requests'],
-    test_suite='nose.collector',
     test_requires=['coverage', 'nose'],
+    test_suite='nose.collector',
     entry_points={
         'console_scripts': [
             'wunderapi=wunderapi:cli'
