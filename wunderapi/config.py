@@ -7,6 +7,7 @@ class Config():
     """
     Reads the default configuration from config file.  If file doesn't exist
     then it is created.
+
     :param api_key: Weather Underground API developer key
     :param location: Default zipcode
     :param units: english, metric
@@ -16,6 +17,7 @@ class Config():
                  location = None,
                  units = 'english',
                  config_file = "~/.config/wunderapi/config"):
+
         self.api_key = api_key
         self.location = location
         self.units = units
@@ -41,12 +43,14 @@ class Config():
         config['default'] = {}
         config['default']['api_key'] = self.api_key
         config['default']['location'] = self.location
+
         with open(self.config_file, 'w') as configfile:
             config.write(configfile)
 
 
 
 def main(api_key=None, location=None):
+
     config = Config(api_key, location)
     print(config.api_key)
     print(config.location)
