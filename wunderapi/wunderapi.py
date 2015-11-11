@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import requests
+import pprint 
 import os
 
 
@@ -55,7 +56,7 @@ class Wunderapi():
         
         return conditions
 
-    def format_date(self, result=None):
+    def format_date(self, data):
         """ Returns the  date formatted"""
-        return
+        return data["monthname"] + " " + str(data["day"])
 
