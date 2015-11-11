@@ -37,27 +37,21 @@ class Wunderapi():
         """ Returns the current observation temperature. """
         if not result:
             result = self.get('conditions')
-        result = result['current_observation']
-        temp = result[self.units]
+        temp = result['current_observation'][self.units]
         if self.units == 'temp_f':
             return "%s %sF" % (str(temp), u"\u00b0")
         else:
             return "%s %sC" % (str(temp), u"\u00b0")
 
-    def print_temp(self):
-        """ Prints the current observation temperature. """
-        result = self.get('conditions')
-        print(self.get_temp(result))
+    def get_conditions(self, result=None):
+        """ Returns a summary of the current conditions. """
+        if not result:
+            result = self.get('conditions')
 
-    def print_conditions(self):
-        """ Prints a summary of the current conditions. """
-        result = self.get('conditions')
-        result = result['current_observation']
-
-        conditions = "\nCurrent weather for %s \n" % (result['display_location']['full'])
-        conditions += "%s and %s \n" % (self.get_temp(), result['weather'])
-        conditions += "Winds: %s \n" % (result['wind_string'])
-        conditions += "Relative Humidty: %s\n" % (result['relative_humidity']) 
+        conditions = "\nCurrent weather for %s \n" % (result['current_observation']['display_location']['full'])
+        conditions += "%s and %s \n" % (self.get_temp(result), result['current_observation']['weather'])
+        conditions += "Winds: %s \n" % (result['current_observation']['wind_string'])
+        conditions += "Relative Humidty: %s\n" % (result['current_observation']['relative_humidity'])
         
-        print(conditions)
+        return conditions
 
