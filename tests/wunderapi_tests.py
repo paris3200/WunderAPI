@@ -13,6 +13,12 @@ def mock_result():
             result = json.load(data_file)
     return result
 
+def mock_forecast_result():
+    with open('tests/resources/forecast.txt') as data_file:
+            result = json.load(data_file)
+    return result
+
+
 def setup_metric():
     api_key = '12345678901234567'
     location = '94101'
@@ -46,3 +52,7 @@ def test_get_conditions():
 def test_get_is_dict():
     api = setup()
     dict is type(api.get('conditions'))
+
+def test_format_date():
+    api = setup()
+    "June 26" == api.format_date(mock_forecast_result())

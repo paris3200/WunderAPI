@@ -55,3 +55,7 @@ class Wunderapi():
         
         return conditions
 
+    def format_date(self, result=None):
+        """ Returns the  date formatted"""
+        return
+
