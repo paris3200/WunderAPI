@@ -53,13 +53,11 @@ class Wunderapi():
         """ Prints a summary of the current conditions. """
         result = self.get('conditions')
         result = result['current_observation']
-        conditions = """
-        \n Current weather for %s \n
-        %s and %s \n
-        Winds: %s \n
-        Relative Humidity: %s \n
-        """ % (result['display_location']['full'], self.get_temp(), \
-                result['weather'], result['wind_string'], result['relative_humidity'])
+
+        conditions = "\nCurrent weather for %s \n" % (result['display_location']['full'])
+        conditions += "%s and %s \n" % (self.get_temp(), result['weather'])
+        conditions += "Winds: %s \n" % (result['wind_string'])
+        conditions += "Relative Humidty: %s\n" % (result['relative_humidity']) 
         
         print(conditions)
 
