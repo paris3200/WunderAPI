@@ -6,7 +6,7 @@ import json
 def setup():
     api_key = '12345678901234567'
     location = '94101'
-    return Wunderapi(api_key, location, units='imperial')
+    return Wunderapi(api_key, location, units='english')
 
 
 def mock_result():
@@ -32,7 +32,7 @@ def setup_metric():
 
 def test_get_temp_f():
     api = setup()
-    asserts_equals(("66.3 %sF" % u"\u00b0"), api.get_temp(mock_result()))
+    assert_equals(("66.3 %sF" % u"\u00b0"), api.get_temp(mock_result()))
 
 
 def test_get_temp_c():
@@ -60,7 +60,7 @@ def test_get_conditions():
 
 def test_get_is_dict():
     api = setup()
-    assert isistance(api.get('conditions'), dict)
+    assert isinstance(api.get('conditions'), dict)
 
 
 def test_format_date_date():

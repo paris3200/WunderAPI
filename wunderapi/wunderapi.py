@@ -15,7 +15,7 @@ class Wunderapi():
         """
         self.api_key = api_key
         self.location = location
-        if units is 'metric':
+        if units == 'metric':
             self.units = 'temp_c'
         else:
             self.units = 'temp_f'
@@ -42,7 +42,7 @@ class Wunderapi():
         else:
             return "%s %sC" % (str(temp), u"\u00b0")
 
-    def get_conditions(self, result=None):
+    def get_conditions(self, result=None, ):
         """ Returns a summary of the current conditions. """
         if not result:
             result = self.get('conditions')
