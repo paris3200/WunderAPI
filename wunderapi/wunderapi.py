@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 import requests
-import pprint 
-import os
 
 
 class Wunderapi():
@@ -26,7 +24,7 @@ class Wunderapi():
         """ Returns a url for the api formatted for the specific view."""
         view = view
         url = "http://api.wunderground.com/api/%s/%s/q/%s.json" % \
-                    (self.api_key, view, self.location)
+            (self.api_key, view, self.location)
         return url
 
     def get(self, view):
@@ -49,11 +47,14 @@ class Wunderapi():
         if not result:
             result = self.get('conditions')
 
-        conditions = "\nCurrent weather for %s \n" % (result['current_observation']['display_location']['full'])
-        conditions += "%s and %s \n" % (self.get_temp(result), result['current_observation']['weather'])
-        conditions += "Winds: %s \n" % (result['current_observation']['wind_string'])
-        conditions += "Relative Humidty: %s\n" % (result['current_observation']['relative_humidity'])
-        
+        conditions = "\nCurrent weather for %s \n" % \
+            (result['current_observation']['display_location']['full'])
+        conditions += "%s and %s \n" % \
+            (self.get_temp(result), result['current_observation']['weather'])
+        conditions += "Winds: %s \n" % \
+            (result['current_observation']['wind_string'])
+        conditions += "Relative Humidty: %s\n" % \
+            (result['current_observation']['relative_humidity'])
         return conditions
 
     def format_date(self, data, style=None):
@@ -61,7 +62,7 @@ class Wunderapi():
 
         Keyword arguments:
         data   -- a list
-        style  -- desired format (date, day, shortday) 
+        style  -- desired format (date, day, shortday)
         """
         if(style is None or style == "date"):
             return data["monthname"] + " " + str(data["day"])
