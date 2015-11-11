@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import click
-from wunderapi import Wunderapi
+from wunderapi.wunderapi import Wunderapi as weather
 
 @click.command()
 @click.option('--conditions', '-c', multiple=True, is_flag=True, required=False,
@@ -15,7 +15,7 @@ from wunderapi import Wunderapi
               help="Units {english, metric} Defaults to english")
 def main(conditions, forecast, temp, location, units):
     """Command line interface for the weather underground API."""
-    api = Wunderapi('36f5a21f2a7c691c', '27018', 'F')
+    api = weather('36f5a21f2a7c691c', '27018', 'F')
     if conditions:
         api.print_conditions()
     elif forecast:
@@ -23,6 +23,6 @@ def main(conditions, forecast, temp, location, units):
     elif temp:
         api.print_temp()
 
-
 if __name__ == '__main__':
-    main()
+        main()
+

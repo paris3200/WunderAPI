@@ -10,6 +10,7 @@ setup(
     description='A wrapper for the Weather Underground Rest API.',
     author='Jason Paris',
     author_email='paris3200@gmail.com',
+    license='MIT',
     package='wunderapi',
     url='https://github.com/paris3200/wunderapi',
     install_requires=['Click', 'Requests'],

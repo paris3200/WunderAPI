@@ -1,15 +1,15 @@
 from nose.tools import *
-from wunderapi.wunderapi import WunderAPI
+from wunderapi.wunderapi import Wunderapi
 
 def setup():
     api_key = '12345678901234567'
     location = '12345'
-    return WunderAPI(api_key, location, units='imperial')
+    return Wunderapi(api_key, location, units='imperial')
 
 def setup_metric():
     api_key = '12345678901234567'
     location = '12345'
-    return WunderAPI(api_key, location, units='metric')
+    return Wunderapi(api_key, location, units='metric')
 
 def test_get_temp_f():
     api = setup()
