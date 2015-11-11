@@ -57,6 +57,20 @@ def test_get_is_dict():
     api = setup()
     assert dict is type(api.get('conditions'))
 
-def test_format_date():
+def test_format_date_date():
+    api = setup()
+    assert_equals( "June 29", api.format_date(mock_date_result(), "date"))
+
+def test_format_date_date_empty():
     api = setup()
     assert_equals( "June 29", api.format_date(mock_date_result()))
+
+def test_format_date_day():
+    api = setup()
+    assert_equals( "Friday", api.format_date(mock_date_result(), "day"))
+
+def test_format_date_day_short():
+    api = setup()
+    assert_equals( "Fri", api.format_date(mock_date_result(), "shortday"))
+
+

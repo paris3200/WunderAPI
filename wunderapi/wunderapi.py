@@ -56,7 +56,16 @@ class Wunderapi():
         
         return conditions
 
-    def format_date(self, data):
-        """ Returns the  date formatted"""
-        return data["monthname"] + " " + str(data["day"])
+    def format_date(self, data, style=None):
+        """ Format date.
 
+        Keyword arguments:
+        data   -- a list
+        style  -- desired format (date, day, shortday) 
+        """
+        if(style is None or style == "date"):
+            return data["monthname"] + " " + str(data["day"])
+        elif(style == "day"):
+            return data["weekday"]
+        elif(style == "shortday"):
+            return data["weekday_short"]
