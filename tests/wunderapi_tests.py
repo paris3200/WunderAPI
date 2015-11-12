@@ -49,11 +49,20 @@ def test_get_url_current():
                   (api_key, location))
 
 
-def test_get_conditions():
+def test_get_conditions_english():
     api = setup()
     conditions = "\nCurrent weather for San Francisco, CA \n"
     conditions += "66.3 \u00b0F and Partly Cloudy \n"
     conditions += "Winds: From the NNW at 22.0 MPH Gusting to 28.0 MPH \n"
+    conditions += "Relative Humidty: 65%\n"
+    assert_equal(conditions, api.get_conditions(mock_result()))
+
+
+def test_get_conditions_metric():
+    api = setup_metric()
+    conditions = "\nCurrent weather for San Francisco, CA \n"
+    conditions += "19.1 \u00b0C and Partly Cloudy \n"
+    conditions += "Winds: From the NNW at 35.4 KPH Gusting to 45.1 KPH \n"
     conditions += "Relative Humidty: 65%\n"
     assert_equal(conditions, api.get_conditions(mock_result()))
 
@@ -81,3 +90,15 @@ def test_format_date_day():
 def test_format_date_day_short():
     api = setup()
     assert_equals("Fri", api.format_date(mock_date_result(), "shortday"))
+
+
+def test_get_wind_string_english():
+    api = setup()
+    assert_equal("From the NNW at 22.0 MPH Gusting to 28.0 MPH",
+                 api.get_wind_string(mock_result()))
+
+
+def test_get_wind_string_metric():
+    api = setup_metric()
+    assert_equal("From the NNW at 35.4 KPH Gusting to 45.1 KPH",
+                 api.get_wind_string(mock_result()))

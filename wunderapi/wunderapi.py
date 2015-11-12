@@ -15,10 +15,7 @@ class Wunderapi():
         """
         self.api_key = api_key
         self.location = location
-        if units == 'metric':
-            self.units = 'temp_c'
-        else:
-            self.units = 'temp_f'
+        self.units = units
 
     def get_url(self, view):
         """ Returns a url for the api formatted for the specific view."""
@@ -36,10 +33,11 @@ class Wunderapi():
         """ Returns the current observation temperature. """
         if not result:
             result = self.get('conditions')
-        temp = result['current_observation'][self.units]
-        if self.units == 'temp_f':
+        if self.units == 'english':
+            temp = result['current_observation']['temp_f']
             return "%s %sF" % (str(temp), u"\u00b0")
         else:
+            temp = result['current_observation']['temp_c']
             return "%s %sC" % (str(temp), u"\u00b0")
 
     def get_conditions(self, result=None, ):
@@ -52,10 +50,24 @@ class Wunderapi():
         conditions += "%s and %s \n" % \
             (self.get_temp(result), result['current_observation']['weather'])
         conditions += "Winds: %s \n" % \
-            (result['current_observation']['wind_string'])
+            (self.get_wind_string(result))
         conditions += "Relative Humidty: %s\n" % \
             (result['current_observation']['relative_humidity'])
         return conditions
+
+    def get_wind_string(self, result=None):
+        """ Returns a formatted wind string based on unit type. """
+        # Calm based on the Beaufort Scale for light air.
+        if result['current_observation']['wind_mph'] <= 3.4:
+            return "Calm"
+        if self.units == "english":
+            return result['current_observation']['wind_string']
+        else:
+            # Weather Underground doesn't have a metric wind string
+            return ("From the %s at %s KPH Gusting to %s KPH" %
+                    (result['current_observation']['wind_dir'],
+                     result['current_observation']['wind_kph'],
+                     result['current_observation']['wind_gust_kph']))
 
     def format_date(self, data, style=None):
         """ Format date.
