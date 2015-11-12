@@ -7,7 +7,7 @@ class Wunderapi():
     Weather Underground API wrapper.  Requires a developer api_key from weather
     underground.
     """
-    def __init__(self, api_key, location, units='english', date_format='date'):
+    def __init__(self, api_key, location, units=None, date_format=None):
         """
         :param api_key: Developer api key.
         :param location: Zipcode of weatherstation.
@@ -16,8 +16,14 @@ class Wunderapi():
         """
         self.api_key = api_key
         self.location = location
-        self.units = units
-        self.date_format = date_format
+        if not units:
+            self.units = "english"
+        else:
+            self.units = units
+        if not date_format:
+            self.date_format = "date"
+        else:
+            self.date_format = date_format
 
     def get_url(self, view):
         """ Returns a url for the api formatted for the specific view."""
@@ -93,20 +99,20 @@ class Wunderapi():
         for day in days:
             date = self.format_date(day['date'])
             condition = day['conditions']
-            rain = day['pop']
+            rain = str(day['pop']) + "%"
             temp = "%s / %s" % (self.format_temp(day["high"][temp_key]),
                                 self.format_temp(day["low"][temp_key]))
             wind = self.format_wind(day)
-            humidity = day['avehumidity']
-            forecast.append([date, condition, rain, temp, wind, humidity])
+            humidity = str(day['avehumidity']) + "%"
+            forecast.append([date, condition, rain, str(temp), str(wind), humidity])
         return forecast
 
     def format_temp(self, temp):
         """ Returns string containing temperature with units. """
         if (self.units == "english"):
-            return "%s %sF" % (str(temp), u"\u00b0")
+            return "%s%sF" % (str(temp), u"\u00b0")
         else:
-            return "%s %sC" % (str(temp), u"\u00b0")
+            return "%s%sC" % (str(temp), u"\u00b0")
 
     def format_date(self, data, style=None):
         """ Returns string of formatted date.

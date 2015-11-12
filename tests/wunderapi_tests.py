@@ -38,12 +38,12 @@ def setup_metric():
 
 def test_get_temp_f():
     api = setup()
-    assert_equals(("66.3 %sF" % u"\u00b0"), api.get_temp(mock_result()))
+    assert_equals(("66.3%sF" % u"\u00b0"), api.get_temp(mock_result()))
 
 
 def test_get_temp_c():
     api = setup_metric()
-    assert_equals(("19.1 %sC" % u"\u00b0"), api.get_temp(mock_result()))
+    assert_equals(("19.1%sC" % u"\u00b0"), api.get_temp(mock_result()))
 
 
 def test_get_url_current():
@@ -83,14 +83,14 @@ def test_get_forecast_short():
     forecast = []
     forecast.append(['Date', 'Condition', 'Rain Chance',
                      'Temp Hi/Lo', 'Wind', 'Humidity'])
-    forecast.append(['June 26', 'Partly Cloudy', 0,
-                     '68 °F / 50 °F', '17 MPH', 72])
-    forecast.append(['June 27', 'Partly Cloudy', 0,
-                     '72 °F / 54 °F', '9 MPH', 70])
-    forecast.append(['June 28', 'Partly Cloudy', 0,
-                     '72 °F / 54 °F', '12 MPH', 80])
-    forecast.append(['June 29', 'Fog', 0,
-                     '68 °F / 52 °F', '10 MPH', 79])
+    forecast.append(['June 26', 'Partly Cloudy', '0%',
+                     '68°F / 50°F', '17 MPH', '72%'])
+    forecast.append(['June 27', 'Partly Cloudy', '0%',
+                     '72°F / 54°F', '9 MPH', '70%'])
+    forecast.append(['June 28', 'Partly Cloudy', '0%',
+                     '72°F / 54°F', '12 MPH', '80%'])
+    forecast.append(['June 29', 'Fog', '0%',
+                     '68°F / 52°F', '10 MPH', '79%'])
     assert_equal(forecast, api.get_forecast(mock_forecast_result()))
 
 

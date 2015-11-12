@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 import click
 from wunderapi.wunderapi import Wunderapi as weather
+from terminaltables import SingleTable
+
 
 
 def print_temp(api):
@@ -10,8 +12,14 @@ def print_temp(api):
 def print_conditions(api):
     click.echo(api.get_conditions())
 
+
 def print_forecast(api):
-    click.echo(api.get_forecast())
+    print_table(api.get_forecast())
+
+
+def print_table(data):
+    table = SingleTable(data)
+    print(table.table)
 
 
 @click.command()
