@@ -13,7 +13,7 @@ setup(
     license='MIT',
     package='wunderapi',
     url='https://github.com/paris3200/wunderapi',
-    install_requires=['Click', 'Requests'],
+    install_requires=['Click', 'Requests', 'terminaltables'],
     test_suite='nose.collector',
     test_require=['coverage', 'nose'],
     entry_points={

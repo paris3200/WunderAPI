@@ -104,7 +104,7 @@ class Wunderapi():
                                 self.format_temp(day["low"][temp_key]))
             wind = self.format_wind(day)
             humidity = str(day['avehumidity']) + "%"
-            forecast.append([date, condition, rain, str(temp), str(wind), humidity])
+            forecast.append([date, condition, rain, temp, wind, humidity])
         return forecast
 
     def format_temp(self, temp):
