@@ -1,5 +1,6 @@
 # WunderAPI
 A command line interface for the weather underground api.
+
     wunderapi --help
     Usage: wunderapi [OPTIONS]
 
