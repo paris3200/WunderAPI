@@ -51,7 +51,7 @@ class Wunderapi():
             (self.get_temp(result), result['current_observation']['weather'])
         conditions += "Winds: %s \n" % \
             (self.get_wind_string(result))
-        conditions += "Relative Humidty: %s\n" % \
+        conditions += "Relative Humidity: %s\n" % \
             (result['current_observation']['relative_humidity'])
         return conditions
 

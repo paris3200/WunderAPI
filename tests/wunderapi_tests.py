@@ -54,7 +54,7 @@ def test_get_conditions_english():
     conditions = "\nCurrent weather for San Francisco, CA \n"
     conditions += "66.3 \u00b0F and Partly Cloudy \n"
     conditions += "Winds: From the NNW at 22.0 MPH Gusting to 28.0 MPH \n"
-    conditions += "Relative Humidty: 65%\n"
+    conditions += "Relative Humidity: 65%\n"
     assert_equal(conditions, api.get_conditions(mock_result()))
 
 
@@ -63,7 +63,7 @@ def test_get_conditions_metric():
     conditions = "\nCurrent weather for San Francisco, CA \n"
     conditions += "19.1 \u00b0C and Partly Cloudy \n"
     conditions += "Winds: From the NNW at 35.4 KPH Gusting to 45.1 KPH \n"
-    conditions += "Relative Humidty: 65%\n"
+    conditions += "Relative Humidity: 65%\n"
     assert_equal(conditions, api.get_conditions(mock_result()))
 
 
