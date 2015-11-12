@@ -10,7 +10,7 @@ def setup():
 
 
 def mock_result():
-    with open('tests/resources/result.txt') as data_file:
+    with open('tests/resources/conditions.txt') as data_file:
             result = json.load(data_file)
     return result
 
