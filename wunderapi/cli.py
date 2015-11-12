@@ -10,6 +10,9 @@ def print_temp(api):
 def print_conditions(api):
     click.echo(api.get_conditions())
 
+def print_forecast(api):
+    click.echo(api.get_forecast())
+
 
 @click.command()
 @click.option('--conditions', '-c', multiple=False, is_flag=True,
@@ -29,7 +32,7 @@ def cli(conditions, forecast, temp, location, units):
     if conditions:
         print_conditions(api)
     elif forecast:
-        pass
+        print_forecast(api)
     elif temp:
         print_temp(api)
     else:

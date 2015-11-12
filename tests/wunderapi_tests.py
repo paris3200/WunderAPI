@@ -24,6 +24,12 @@ def mock_date_result():
     return date
 
 
+def mock_forecast_result():
+    with open('tests/resources/forecast.txt') as data_file:
+            result = json.load(data_file)
+    return result
+
+
 def setup_metric():
     api_key = '12345678901234567'
     location = '94101'
@@ -69,7 +75,23 @@ def test_get_conditions_metric():
 
 def test_get_is_dict():
     api = setup()
-    assert isinstance(api.get('conditions'), dict)
+    assert isinstance(api.get_result('conditions'), dict)
+
+
+def test_get_forecast_short():
+    api = setup()
+    forecast = []
+    forecast.append(['Date', 'Condition', 'Rain Chance',
+                     'Temp Hi/Lo', 'Wind', 'Humidity'])
+    forecast.append(['June 26', 'Partly Cloudy', 0,
+                     '68 °F / 50 °F', '17 MPH', 72])
+    forecast.append(['June 27', 'Partly Cloudy', 0,
+                     '72 °F / 54 °F', '9 MPH', 70])
+    forecast.append(['June 28', 'Partly Cloudy', 0,
+                     '72 °F / 54 °F', '12 MPH', 80])
+    forecast.append(['June 29', 'Fog', 0,
+                     '68 °F / 52 °F', '10 MPH', 79])
+    assert_equal(forecast, api.get_forecast(mock_forecast_result()))
 
 
 def test_format_date_date():
@@ -85,6 +107,32 @@ def test_format_date_date_empty():
 def test_format_date_day():
     api = setup()
     assert_equals("Friday", api.format_date(mock_date_result(), "day"))
+
+
+def test_format_wind_english():
+    api = setup()
+    result = mock_forecast_result()
+    result = result['forecast']['simpleforecast']['forecastday'][0]
+    assert_equals("17 MPH", api.format_wind(result))
+
+
+def test_format_wind_metric():
+    api = setup_metric()
+    result = mock_forecast_result()
+    result = result['forecast']['simpleforecast']['forecastday'][0]
+    assert_equals("27 KPH", api.format_wind(result))
+
+
+def test_format_temp_english():
+    api = setup()
+    result = "66.3"
+    assert_equals(("66.3 %sF" % u"\u00b0"), api.format_temp(result))
+
+
+def test_format_temp_metric():
+    api = setup_metric()
+    result = "19.1"
+    assert_equals(("19.1 %sC" % u"\u00b0"), api.format_temp(result))
 
 
 def test_format_date_day_short():

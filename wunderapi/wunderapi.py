@@ -24,7 +24,7 @@ class Wunderapi():
             (self.api_key, view, self.location)
         return url
 
-    def get(self, view):
+    def get_result(self, view):
         """ Returns api result for view as a dictionary. """
         r = requests.get(self.get_url(view))
         return r.json()
@@ -32,7 +32,7 @@ class Wunderapi():
     def get_temp(self, result=None):
         """ Returns the current observation temperature. """
         if not result:
-            result = self.get('conditions')
+            result = self.get_result('conditions')
         if self.units == 'english':
             temp = result['current_observation']['temp_f']
             return "%s %sF" % (str(temp), u"\u00b0")
@@ -43,7 +43,7 @@ class Wunderapi():
     def get_conditions(self, result=None, ):
         """ Returns a summary of the current conditions. """
         if not result:
-            result = self.get('conditions')
+            result = self.get_result('conditions')
 
         conditions = "\nCurrent weather for %s \n" % \
             (result['current_observation']['display_location']['full'])
@@ -69,6 +69,38 @@ class Wunderapi():
                      result['current_observation']['wind_kph'],
                      result['current_observation']['wind_gust_kph']))
 
+    def get_forecast(self, result=None, detail="simple"):
+        if not result:
+            result = self.get_result('forecast')
+        days = result['forecast']['simpleforecast']['forecastday']
+
+        # Determine temp key
+        if (self.units == "metric"):
+            temp_key = "celsius"
+        else:
+            temp_key = "fahrenheit"
+
+        forecast = []
+        forecast.append(["Date", "Condition", "Rain Chance", "Temp Hi/Lo",
+                         "Wind", "Humidity"])
+        for day in days:
+            date = self.format_date(day['date'])
+            condition = day['conditions']
+            rain = day['pop']
+            temp = "%s / %s" % (self.format_temp(day["high"][temp_key]),
+                                self.format_temp(day["low"][temp_key]))
+            wind = self.format_wind(day)
+            humidity = day['avehumidity']
+            forecast.append([date, condition, rain, temp, wind, humidity])
+        return forecast
+
+    def format_temp(self, temp):
+        """ Returns string with containing temperature with units. """
+        if (self.units == "english"):
+            return "%s %sF" % (str(temp), u"\u00b0")
+        else:
+            return "%s %sC" % (str(temp), u"\u00b0")
+
     def format_date(self, data, style=None):
         """ Format date.
 
@@ -82,3 +114,10 @@ class Wunderapi():
             return data["weekday"]
         elif(style == "shortday"):
             return data["weekday_short"]
+
+    def format_wind(self, data):
+        if (self.units == "english"):
+            wind = "%s MPH" % (data['avewind']['mph'])
+        else:
+            wind = "%s KPH" % (data['avewind']['kph'])
+        return wind
