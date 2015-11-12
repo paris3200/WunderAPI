@@ -7,15 +7,17 @@ class Wunderapi():
     Weather Underground API wrapper.  Requires a developer api_key from weather
     underground.
     """
-    def __init__(self, api_key, location, units='english'):
+    def __init__(self, api_key, location, units='english', date_format='date'):
         """
         :param api_key: Developer api key.
         :param location: Zipcode of weatherstation.
         :param units: Unit for temperature {'english', 'metric'}.
+        :param date_format: Date format {'date', 'day', 'shortday'}
         """
         self.api_key = api_key
         self.location = location
         self.units = units
+        self.date_format = date_format
 
     def get_url(self, view):
         """ Returns a url for the api formatted for the specific view."""
@@ -69,7 +71,7 @@ class Wunderapi():
                      result['current_observation']['wind_kph'],
                      result['current_observation']['wind_gust_kph']))
 
-    def get_forecast(self, result=None, detail="simple"):
+    def get_forecast(self, result=None, detail='simple'):
         """
         Returns an array of the forecast with the first element containing
         the table headings.
@@ -109,15 +111,18 @@ class Wunderapi():
     def format_date(self, data, style=None):
         """ Returns string of formatted date.
             Example:
-                date    - November 12
-                day     - Thursday
-                shortda - Thur
+                date     - November 12
+                day      - Thursday
+                shortday - Thur
 
         Keyword arguments:
         data   -- a list
         style  -- desired format (date, day, shortday)
         """
-        if(style is None or style == "date"):
+        if not style:
+            style = self.date_format
+
+        if(style == "date"):
             return data["monthname"] + " " + str(data["day"])
         elif(style == "day"):
             return data["weekday"]

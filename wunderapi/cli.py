@@ -26,9 +26,11 @@ def print_forecast(api):
 @click.option('--units', '-u', type=click.Choice(['english', 'metric']),
               required=False, default="english",
               help="Format for units.  Defaults to english")
-def cli(conditions, forecast, temp, location, units):
+@click.option('--date', type=click.Choice(['date', 'day', 'shortday']),
+              help="Format for date.  Defaults to date.")
+def cli(conditions, forecast, temp, location, units, date):
     """Command line interface for the weather underground API."""
-    api = weather('36f5a21f2a7c691c', '27018', units)
+    api = weather('36f5a21f2a7c691c', '27018', units, date)
     if conditions:
         print_conditions(api)
     elif forecast:
