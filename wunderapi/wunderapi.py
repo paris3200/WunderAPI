@@ -41,7 +41,7 @@ class Wunderapi():
             return "%s %sC" % (str(temp), u"\u00b0")
 
     def get_conditions(self, result=None, ):
-        """ Returns a summary of the current conditions. """
+        """ Returns a multiline string summary of the current conditions. """
         if not result:
             result = self.get_result('conditions')
 
@@ -70,6 +70,10 @@ class Wunderapi():
                      result['current_observation']['wind_gust_kph']))
 
     def get_forecast(self, result=None, detail="simple"):
+        """
+        Returns an array of the forecast with the first element containing
+        the table headings.
+        """
         if not result:
             result = self.get_result('forecast')
         days = result['forecast']['simpleforecast']['forecastday']
@@ -81,6 +85,7 @@ class Wunderapi():
             temp_key = "fahrenheit"
 
         forecast = []
+        # Table headings
         forecast.append(["Date", "Condition", "Rain Chance", "Temp Hi/Lo",
                          "Wind", "Humidity"])
         for day in days:
@@ -95,14 +100,18 @@ class Wunderapi():
         return forecast
 
     def format_temp(self, temp):
-        """ Returns string with containing temperature with units. """
+        """ Returns string containing temperature with units. """
         if (self.units == "english"):
             return "%s %sF" % (str(temp), u"\u00b0")
         else:
             return "%s %sC" % (str(temp), u"\u00b0")
 
     def format_date(self, data, style=None):
-        """ Format date.
+        """ Returns string of formatted date.
+            Example:
+                date    - November 12
+                day     - Thursday
+                shortda - Thur
 
         Keyword arguments:
         data   -- a list
