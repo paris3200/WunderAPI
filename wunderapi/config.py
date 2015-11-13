@@ -13,15 +13,15 @@ class Config():
     :param units: english, metric
     """
 
-    def __init__(self, api_key = None,
-                 location = None,
-                 units = 'english',
-                 config_file = "~/.config/wunderapi/config"):
+    def __init__(self, api_key=None,
+                 location=None,
+                 units='english',
+                 config_file="~/.config/wunderapi/config"):
 
         self.api_key = api_key
         self.location = location
         self.units = units
-        #Get the absolute file path
+        # Get the absolute file path
         self.config_file = os.path.expanduser(config_file)
         if not os.path.isfile(self.config_file):
             self.create_config(api_key, location)
@@ -48,13 +48,10 @@ class Config():
             config.write(configfile)
 
 
-
 def main(api_key=None, location=None):
-
     config = Config(api_key, location)
     print(config.api_key)
     print(config.location)
-
 
 
 if __name__ == "__main__":
