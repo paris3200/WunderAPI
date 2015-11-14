@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import requests
+import sys
 
 
 class Wunderapi():
@@ -34,8 +35,12 @@ class Wunderapi():
 
     def get_result(self, view):
         """ Returns api result for view as a dictionary. """
-        r = requests.get(self.get_url(view))
-        return r.json()
+        try:
+            r = requests.get(self.get_url(view))
+            return r.json()
+        except:
+            print("\n \033[91m Error: Network connection not found. \n")
+            sys.exit()
 
     def get_temp(self, result=None):
         """ Returns the current observation temperature. """
