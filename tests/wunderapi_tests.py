@@ -58,7 +58,7 @@ def test_get_url_current():
 def test_get_conditions_english():
     api = setup()
     conditions = "\nCurrent weather for San Francisco, CA \n"
-    conditions += "66.3 \u00b0F and Partly Cloudy \n"
+    conditions += "66.3\u00b0F and Partly Cloudy \n"
     conditions += "Winds: From the NNW at 22.0 MPH Gusting to 28.0 MPH \n"
     conditions += "Relative Humidity: 65%\n"
     assert_equal(conditions, api.get_conditions(mock_result()))
@@ -67,7 +67,7 @@ def test_get_conditions_english():
 def test_get_conditions_metric():
     api = setup_metric()
     conditions = "\nCurrent weather for San Francisco, CA \n"
-    conditions += "19.1 \u00b0C and Partly Cloudy \n"
+    conditions += "19.1\u00b0C and Partly Cloudy \n"
     conditions += "Winds: From the NNW at 35.4 KPH Gusting to 45.1 KPH \n"
     conditions += "Relative Humidity: 65%\n"
     assert_equal(conditions, api.get_conditions(mock_result()))
@@ -126,13 +126,13 @@ def test_format_wind_metric():
 def test_format_temp_english():
     api = setup()
     result = "66.3"
-    assert_equals(("66.3 %sF" % u"\u00b0"), api.format_temp(result))
+    assert_equals(("66.3%sF" % u"\u00b0"), api.format_temp(result))
 
 
 def test_format_temp_metric():
     api = setup_metric()
     result = "19.1"
-    assert_equals(("19.1 %sC" % u"\u00b0"), api.format_temp(result))
+    assert_equals(("19.1%sC" % u"\u00b0"), api.format_temp(result))
 
 
 def test_format_date_day_short():
