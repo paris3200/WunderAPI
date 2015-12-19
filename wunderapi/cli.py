@@ -31,9 +31,9 @@ def print_table(data):
 @click.option('--location', '-l', required=False,
               help="Zipcode of location")
 @click.option('--units', '-u', required=False,
-              help="Format for units.  Defaults to english")
+              help="Format for units.  {english, metric}")
 @click.option('--date', required=False,
-              help="Format for date.  Defaults to date.")
+              help="Format for date.  {date, day, shortday}")
 @click.option('--config_file', help="Path to config file.")
 def cli(conditions, forecast, temp, location, units, date, config_file):
     """Command line interface for the weather underground API."""
