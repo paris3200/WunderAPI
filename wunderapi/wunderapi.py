@@ -2,6 +2,8 @@
 import requests
 import sys
 
+from . config import Config
+
 
 class Wunderapi():
     """
