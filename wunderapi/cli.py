@@ -30,14 +30,15 @@ def print_table(data):
               help="Returns the temperature.")
 @click.option('--location', '-l', required=False,
               help="Zipcode of location")
-@click.option('--units', '-u', type=click.Choice(['english', 'metric']),
-              required=False, default="english",
+@click.option('--units', '-u', required=False,
               help="Format for units.  Defaults to english")
-@click.option('--date', type=click.Choice(['date', 'day', 'shortday']),
+@click.option('--date', required=False,
               help="Format for date.  Defaults to date.")
-def cli(conditions, forecast, temp, location, units, date):
+@click.option('--config_file', help="Path to config file.")
+def cli(conditions, forecast, temp, location, units, date, config_file):
     """Command line interface for the weather underground API."""
-    api = weather()
+    api = weather(location=location, units=units, date=date,
+                  config_file=config_file)
     if conditions:
         print_conditions(api)
     elif forecast:

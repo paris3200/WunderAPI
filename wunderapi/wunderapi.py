@@ -10,14 +10,18 @@ class Wunderapi():
     Weather Underground API wrapper.  Requires a developer api_key from weather
     underground.
     """
-    def __init__(self, location=None, config=None):
+    def __init__(self, config_file=None, location=None, units=None, date=None):
         """
         :param location: Zipcode of weatherstation.
         :param config: Config file location
         """
-        self.config = Config(config)
-        if self.config.location:
+        self.config = Config(config_file)
+        if location:
             self.config.location = location
+        if units:
+            self.config.units = units
+        if date:
+            self.config.date = date
 
     def get_url(self, view):
         """ Returns a url for the api formatted for the specific view."""
@@ -124,7 +128,7 @@ class Wunderapi():
         style  -- desired format (date, day, shortday)
         """
         if not style:
-            style = self.config.date_format
+            style = self.config.date
 
         if(style == "date"):
             return data["monthname"] + " " + str(data["day"])

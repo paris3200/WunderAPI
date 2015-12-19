@@ -9,15 +9,14 @@ class Config():
     Reads the default configuration from config file.  If file doesn't exist
     then it is created.
 
-    :param api_key: Weather Underground API developer key
-    :param location: Default zipcode
-    :param units: english, metric
+    :param config_file: Location of config file
     """
 
-    def __init__(self, config_file="~/.config/wunderapi/config"):
+    def __init__(self, config_file=None):
 
-        self.location = "zipcode"
-        self.units = "english"
+        if not config_file:
+            config_file = "~/.config/wunderapi/config"
+
         # Get the absolute file path
         self.config_file = os.path.expanduser(config_file)
         self.config_dir = os.path.dirname(config_file)
@@ -30,16 +29,17 @@ class Config():
         """ Reads the config file and imports settings. """
         config = configparser.ConfigParser()
         config.read(self.config_file)
-        if not self.api_key:
-            self.api_key = config[profile]['api_key']
-        elif not self.location:
-            self.location = config[profile]['location']
+        self.api_key = config[profile]['api_key']
+        self.location = config[profile]['location']
+        self.units = config[profile]['units']
+        self.date_format = config[profile]['date_format']
 
     def create_config(self):
         """ Creates the config file. """
         config = configparser.ConfigParser()
         config['default'] = {'api_key': 'API Key',
                              'location': 'Zipcode',
+                             'date_format': 'date',
                              'units': 'english'}
 
         # Create directory if it doesn't exist
@@ -50,6 +50,7 @@ class Config():
             config.write(configfile)
 
     def create_dir(self):
+        """ Creates defaults directory if it doesn't exist. """
         directory = os.path.expanduser(os.path.dirname(self.config_file))
         try:
             os.makedirs(directory)
@@ -57,13 +58,3 @@ class Config():
             if exc.errno == errno.EEXIST and os.path.isdir(directory):
                 pass
             else: raise
-
-
-
-def main(api_key=None, location=None):
-    config = Config()
-    print()
-
-
-if __name__ == "__main__":
-    main()

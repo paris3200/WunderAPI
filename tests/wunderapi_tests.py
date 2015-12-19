@@ -6,11 +6,11 @@ import json
 def setup():
     api_key = '12345678901234567'
     location = '94101'
-    return Wunderapi(api_key, location, units='english')
+    return Wunderapi()
 
 
 def mock_result():
-    with open('tests/resources/conditions.txt') as data_file:
+    api_key, location, units='metwith open('tests/resources/conditions.txt') as data_file:
             result = json.load(data_file)
     return result
 
