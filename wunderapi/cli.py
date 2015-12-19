@@ -4,7 +4,6 @@ from wunderapi.wunderapi import Wunderapi as weather
 from terminaltables import SingleTable
 
 
-
 def print_temp(api):
     click.echo(api.get_temp())
 
@@ -38,7 +37,7 @@ def print_table(data):
               help="Format for date.  Defaults to date.")
 def cli(conditions, forecast, temp, location, units, date):
     """Command line interface for the weather underground API."""
-    api = weather('36f5a21f2a7c691c', '27018', units, date)
+    api = weather()
     if conditions:
         print_conditions(api)
     elif forecast:

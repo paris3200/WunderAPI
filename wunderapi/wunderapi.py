@@ -10,29 +10,20 @@ class Wunderapi():
     Weather Underground API wrapper.  Requires a developer api_key from weather
     underground.
     """
-    def __init__(self, api_key, location, units=None, date_format=None):
+    def __init__(self, location=None, config=None):
         """
-        :param api_key: Developer api key.
         :param location: Zipcode of weatherstation.
-        :param units: Unit for temperature {'english', 'metric'}.
-        :param date_format: Date format {'date', 'day', 'shortday'}
+        :param config: Config file location
         """
-        self.api_key = api_key
-        self.location = location
-        if not units:
-            self.units = "english"
-        else:
-            self.units = units
-        if not date_format:
-            self.date_format = "date"
-        else:
-            self.date_format = date_format
+        self.config = Config(config)
+        if self.config.location:
+            self.config.location = location
 
     def get_url(self, view):
         """ Returns a url for the api formatted for the specific view."""
         view = view
         url = "http://api.wunderground.com/api/%s/%s/q/%s.json" % \
-            (self.api_key, view, self.location)
+            (self.config.api_key, view, self.config.location)
         return url
 
     def get_result(self, view):
@@ -48,7 +39,7 @@ class Wunderapi():
         """ Returns the current observation temperature. """
         if not result:
             result = self.get_result('conditions')
-        if self.units == 'english':
+        if self.config.units == 'english':
             temp = result['current_observation']['temp_f']
             return "%s%sF" % (str(temp), u"\u00b0")
         else:
@@ -75,7 +66,7 @@ class Wunderapi():
         # Calm based on the Beaufort Scale for light air.
         if result['current_observation']['wind_mph'] <= 3.4:
             return "Calm"
-        if self.units == "english":
+        if self.config.units == "english":
             return result['current_observation']['wind_string']
         else:
             # Weather Underground doesn't have a metric wind string
@@ -83,7 +74,6 @@ class Wunderapi():
                     (result['current_observation']['wind_dir'],
                      result['current_observation']['wind_kph'],
                      result['current_observation']['wind_gust_kph']))
-
 
     def get_forecast(self, result=None, detail='simple'):
         """
@@ -95,7 +85,7 @@ class Wunderapi():
         days = result['forecast']['simpleforecast']['forecastday']
 
         # Determine temp key
-        if (self.units == "metric"):
+        if (self.config.units == "metric"):
             temp_key = "celsius"
         else:
             temp_key = "fahrenheit"
@@ -117,7 +107,7 @@ class Wunderapi():
 
     def format_temp(self, temp):
         """ Returns string containing temperature with units. """
-        if (self.units == "english"):
+        if (self.config.units == "english"):
             return "%s%sF" % (str(temp), u"\u00b0")
         else:
             return "%s%sC" % (str(temp), u"\u00b0")
@@ -134,7 +124,7 @@ class Wunderapi():
         style  -- desired format (date, day, shortday)
         """
         if not style:
-            style = self.date_format
+            style = self.config.date_format
 
         if(style == "date"):
             return data["monthname"] + " " + str(data["day"])
@@ -144,7 +134,7 @@ class Wunderapi():
             return data["weekday_short"]
 
     def format_wind(self, data):
-        if (self.units == "english"):
+        if (self.config.units == "english"):
             wind = "%s MPH" % (data['avewind']['mph'])
         else:
             wind = "%s KPH" % (data['avewind']['kph'])
