@@ -1,19 +1,19 @@
 # WunderAPI
-A command line interface for the weather underground api. 
+WunderAPI is a command line interface for the weather underground api.  WunderAPI requires an API key that is available from Weather Underground.  
 
     Usage: wunderapi [OPTIONS]
 
-    Command line interface for the weather underground API.
+      Command line interface for the weather underground API.
 
     Options:
-    -c, --conditions              Returns the current conditions.
-    -f, --forecast                Returns the forecast.
-    -t, --temp                    Returns the temperature.
-    -l, --location TEXT           Zipcode of location
-    -u, --units [english|metric]  Format for units.  Defaults to english
-    --date [date|day|shortday]    Format for date.  Defaults to date.
-    --help                        Show this message and exit.
-
+      -c, --conditions     Returns the current conditions.
+      -f, --forecast       Returns the forecast.
+      -t, --temp           Returns the temperature.
+      -l, --location TEXT  Zipcode of location
+      -u, --units TEXT     Format for units.  {english, metric}
+      --date TEXT          Format for date.  {date, day, shortday}
+      --config_file TEXT   Path to config file.
+      --help               Show this message and exit.
     
     $wunderapi -f
     ┌─────────────┬───────────┬─────────────┬─────────────┬────────┬──────────┐
