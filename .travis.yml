@@ -12,7 +12,7 @@ install:
     
 
 script:
-  - nosetests --with-coverage --cover-erase --cover-package=project
+  - nosetests --with-coverage --cover-erase --cover-package=wunderapi
 
 after_success:
   - coveralls;

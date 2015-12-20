@@ -4,13 +4,11 @@ import json
 
 
 def setup():
-    api_key = '12345678901234567'
-    location = '94101'
-    return Wunderapi()
+    return Wunderapi(config_file='tests/resources/config')
 
 
 def mock_result():
-    api_key, location, units='metwith open('tests/resources/conditions.txt') as data_file:
+    with open('tests/resources/conditions.txt') as data_file:
             result = json.load(data_file)
     return result
 
@@ -31,9 +29,7 @@ def mock_forecast_result():
 
 
 def setup_metric():
-    api_key = '12345678901234567'
-    location = '94101'
-    return Wunderapi(api_key, location, units='metric')
+    return Wunderapi(units='metric')
 
 
 def test_get_temp_f():
@@ -48,11 +44,9 @@ def test_get_temp_c():
 
 def test_get_url_current():
     api = setup()
-    api_key = '12345678901234567'
-    location = '94101'
     assert_equals(api.get_url('conditions'),
                   "http://api.wunderground.com/api/%s/conditions/q/%s.json" %
-                  (api_key, location))
+                  (api.config.api_key, api.config.location))
 
 
 def test_get_conditions_english():

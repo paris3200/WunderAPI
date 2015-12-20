@@ -1,0 +1,6 @@
+[default]
+date_format = date
+units = english
+api_key = 12345678901234567
+location = 94101
+

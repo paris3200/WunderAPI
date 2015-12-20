@@ -12,8 +12,10 @@ class Wunderapi():
     """
     def __init__(self, config_file=None, location=None, units=None, date=None):
         """
+        :param config_file: Config file location
         :param location: Zipcode of weatherstation.
-        :param config: Config file location
+        :param units: Units for results {english, metric}
+        :param units: Format for date results. {date, day, shortday}
         """
         self.config = Config(config_file)
         if location:
@@ -21,7 +23,7 @@ class Wunderapi():
         if units:
             self.config.units = units
         if date:
-            self.config.date = date
+            self.config.date_format = date
 
     def get_url(self, view):
         """ Returns a url for the api formatted for the specific view."""
@@ -116,7 +118,7 @@ class Wunderapi():
         else:
             return "%s%sC" % (str(temp), u"\u00b0")
 
-    def format_date(self, data, style=None):
+    def format_date(self, data, date_format=None):
         """ Returns string of formatted date.
             Example:
                 date     - November 12
@@ -125,16 +127,16 @@ class Wunderapi():
 
         Keyword arguments:
         data   -- a list
-        style  -- desired format (date, day, shortday)
+        date_format  -- desired format (date, day, shortday)
         """
-        if not style:
-            style = self.config.date
+        if not date_format:
+            date_format  = self.config.date_format
 
-        if(style == "date"):
+        if(date_format == "date"):
             return data["monthname"] + " " + str(data["day"])
-        elif(style == "day"):
+        elif(date_format == "day"):
             return data["weekday"]
-        elif(style == "shortday"):
+        elif(date_format == "shortday"):
             return data["weekday_short"]
 
     def format_wind(self, data):
