@@ -65,3 +65,4 @@ flask/
 # Edit
 *.swp
 
+tests/resources/test_config
