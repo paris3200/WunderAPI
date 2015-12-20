@@ -1,3 +1,4 @@
+i[![Build Status](https://travis-ci.org/paris3200/wunderapi.svg?branch=master)](https://travis-ci.org/paris3200/wunderapi) [![Coverage Status](https://coveralls.io/repos/paris3200/wunderapi/badge.svg?branch=master&service=github)](https://coveralls.io/github/paris3200/wunderapi?branch=master)
 # WunderAPI
 WunderAPI is a command line interface for the weather underground api.  WunderAPI requires an API key that is available from Weather Underground.  
 
@@ -15,6 +16,13 @@ WunderAPI is a command line interface for the weather underground api.  WunderAP
       --config_file TEXT   Path to config file.
       --help               Show this message and exit.
     
+    $wunderapi -c
+
+    Current weather for Raleigh, NC 
+    36.5°F and Clear 
+    Winds: Calm 
+    Relative Humidity: 52%
+
     $wunderapi -f
     ┌─────────────┬───────────┬─────────────┬─────────────┬────────┬──────────┐
     │ Date        │ Condition │ Rain Chance │ Temp Hi/Lo  │ Wind   │ Humidity │
