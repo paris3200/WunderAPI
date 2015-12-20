@@ -1,10 +1,11 @@
-from nose.tools import *
+from nose.tools import assert_equals, assert_equal
 from wunderapi.wunderapi import Wunderapi
 import json
 
 
-def setup():
-    return Wunderapi(config_file='tests/resources/config')
+def setup(location=None, units=None, date=None):
+    return Wunderapi(location=location, units=units, date=date,
+                     config_file='tests/resources/config')
 
 
 def mock_result():
@@ -29,7 +30,14 @@ def mock_forecast_result():
 
 
 def setup_metric():
-    return Wunderapi(units='metric')
+    return Wunderapi(config_file='tests/resources/config', units='metric')
+
+
+def test_passed_location_overrides_config():
+    api = setup(location=27695)
+    assert_equals(api.get_url('conditions'),
+                  "http://api.wunderground.com/api/%s/conditions/q/%s.json" %
+                  (api.config.api_key, "27695"))
 
 
 def test_get_temp_f():
@@ -38,7 +46,7 @@ def test_get_temp_f():
 
 
 def test_get_temp_c():
-    api = setup_metric()
+    api = setup(units="metric")
     assert_equals(("19.1%sC" % u"\u00b0"), api.get_temp(mock_result()))
 
 
@@ -101,6 +109,11 @@ def test_format_date_date_empty():
 def test_format_date_day():
     api = setup()
     assert_equals("Friday", api.format_date(mock_date_result(), "day"))
+
+
+def test_passed_date_overides_config():
+    api = setup(date="day")
+    assert_equals("Friday", api.format_date(mock_date_result()))
 
 
 def test_format_wind_english():
