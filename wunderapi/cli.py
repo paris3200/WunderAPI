@@ -16,6 +16,10 @@ def print_forecast(api):
     print_table(api.get_forecast())
 
 
+def print_extended_forecast(api):
+    print_table(api.get_forecast(detail='extended'))
+
+
 def print_table(data):
     table = SingleTable(data)
     print(table.table)
@@ -26,6 +30,8 @@ def print_table(data):
               required=False, help="Returns the current conditions.")
 @click.option('--forecast', '-f', is_flag=True, required=False,
               help="Returns the forecast.")
+@click.option('--extended', '-e', is_flag=True, required=False,
+              help="Returns the 10 day extended forecast.")
 @click.option('--temp', '-t', is_flag=True, required=False,
               help="Returns the temperature.")
 @click.option('--location', '-l', required=False,
@@ -35,7 +41,8 @@ def print_table(data):
 @click.option('--date', required=False,
               help="Format for date.  {date, day, shortday}")
 @click.option('--config_file', help="Path to config file.")
-def cli(conditions, forecast, temp, location, units, date, config_file):
+def cli(conditions, forecast, temp, location, units, date, config_file,
+        extended):
     """Command line interface for the weather underground API."""
     api = weather(location=location, units=units, date=date,
                   config_file=config_file)
@@ -43,6 +50,8 @@ def cli(conditions, forecast, temp, location, units, date, config_file):
         print_conditions(api)
     elif forecast:
         print_forecast(api)
+    elif extended:
+        print_extended_forecast(api)
     elif temp:
         print_temp(api)
     else:

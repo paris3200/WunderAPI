@@ -87,7 +87,10 @@ class Wunderapi():
         the table headings.
         """
         if not result:
-            result = self.get_result('forecast')
+            if detail == 'extended':
+                result = self.get_result('forecast10day')
+            else:
+                result = self.get_result('forecast')
         days = result['forecast']['simpleforecast']['forecastday']
 
         # Determine temp key

@@ -9,6 +9,7 @@ WunderAPI is a command line wrapper for the weather underground api.  WunderAPI 
     Options:
       -c, --conditions     Returns the current conditions.
       -f, --forecast       Returns the forecast.
+      -e, --extended       Returns the 10 day extended forecast.
       -t, --temp           Returns the temperature.
       -l, --location TEXT  Zipcode of location
       -u, --units TEXT     Format for units.  {english, metric}
