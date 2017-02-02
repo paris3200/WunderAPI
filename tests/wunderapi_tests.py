@@ -1,11 +1,11 @@
 from nose.tools import assert_equals, assert_equal
-from wunderapi.wunderapi import Wunderapi
+from wunderapi.weather import Weather
 import json
 
 
 def setup(location=None, units=None, date=None):
-    return Wunderapi(location=location, units=units, date=date,
-                     config_file='tests/resources/config')
+    return Weather(location=location, units=units, date=date,
+                   config_file='tests/resources/config')
 
 
 def mock_result():
@@ -30,8 +30,7 @@ def mock_forecast_result():
 
 
 def setup_metric():
-    return Wunderapi(config_file='tests/resources/config', units='metric')
-
+    return Weather(config_file='tests/resources/config', units='metric')
 
 def test_passed_location_overrides_config():
     api = setup(location=27695)
