@@ -38,4 +38,10 @@ WunderAPI is a command line wrapper for the weather underground api.  WunderAPI 
     └─────────────┴───────────┴─────────────┴─────────────┴────────┴──────────┘
 
 
+## Installation
+
+    $ git clone https://github.com/paris3200/wunderapi.git
+    $ cd wunderapi
+    $ pip install -r requirements.txt
+    $ sudo python setup.py install
 
