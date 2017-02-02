@@ -5,7 +5,7 @@ import sys
 from . config import Config
 
 
-class Wunderapi():
+class Weather():
     """
     Weather Underground API wrapper.  Requires a developer api_key from weather
     underground.

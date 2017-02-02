@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import click
-from wunderapi.wunderapi import Wunderapi as weather
+from wunderapi.weather import Weather
 from terminaltables import SingleTable
 
 
@@ -22,7 +22,7 @@ def print_extended_forecast(api):
 
 def print_table(data):
     table = SingleTable(data)
-    print(table.table)
+    click.echo(table.table)
 
 
 @click.command()
@@ -44,18 +44,17 @@ def print_table(data):
 def cli(conditions, forecast, temp, location, units, date, config_file,
         extended):
     """Command line interface for the weather underground API."""
-    api = weather(location=location, units=units, date=date,
+    api = Weather(location=location, units=units, date=date,
                   config_file=config_file)
     if conditions:
         print_conditions(api)
-    elif forecast:
+    if forecast:
         print_forecast(api)
-    elif extended:
+    if extended:
         print_extended_forecast(api)
-    elif temp:
+    if temp:
         print_temp(api)
-    else:
-        print_conditions(api)
+
 
 if __name__ == '__main__':
         cli()
