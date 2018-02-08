@@ -2,7 +2,7 @@
 # WunderAPI
 WunderAPI is a command line wrapper for the weather underground API.  WunderAPI requires an API key that is available from Weather Underground.  
 
-    $weather --help
+    $ weather --help
 
     Usage: weather [OPTIONS]
 
@@ -20,14 +20,14 @@ WunderAPI is a command line wrapper for the weather underground API.  WunderAPI 
       --help               Show this message and exit.
 
     
-    $weather -c
+    $ weather -c
 
     Current weather for Raleigh, NC 
     36.5°F and Clear 
     Winds: Calm 
     Relative Humidity: 52%
 
-    $wunderapi -f
+    $ weather -f
     ┌─────────────┬───────────┬─────────────┬─────────────┬────────┬──────────┐
     │ Date        │ Condition │ Rain Chance │ Temp Hi/Lo  │ Wind   │ Humidity │
     ├─────────────┼───────────┼─────────────┼─────────────┼────────┼──────────┤
