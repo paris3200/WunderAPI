@@ -7,7 +7,6 @@ import requests
 from . config import Config
 
 
-
 class Weather():
     """
     Weather Underground API wrapper.  Requires a developer api_key from weather

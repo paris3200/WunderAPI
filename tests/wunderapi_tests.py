@@ -8,8 +8,8 @@ def setup(location=None, units=None, date=None):
                    config_file='tests/resources/config')
 
 
-def mock_result():
-    with open('tests/resources/conditions.txt') as data_file:
+def mock_result(mockfile='tests/resources/conditions.txt'):
+    with open(mockfile) as data_file:
             result = json.load(data_file)
     return result
 
@@ -151,6 +151,11 @@ def test_get_wind_string_english():
     assert_equal("From the NNW at 22.0 MPH Gusting to 28.0 MPH",
                  api.get_wind_string(mock_result()))
 
+def test_get_wind_string_calm():
+    api = setup()
+    assert_equal("Calm",
+                 api.get_wind_string(mock_result(
+                     mockfile="tests/resources/conditions_calm.txt")))
 
 def test_get_wind_string_metric():
     api = setup_metric()
