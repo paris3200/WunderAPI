@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/paris3200/wunderapi.svg)](https://travis-ci.org/paris3200/wunderapi) [![Coverage Status](https://coveralls.io/repos/paris3200/wunderapi/badge.svg?branch=master&service=github)](https://coveralls.io/github/paris3200/wunderapi?branch=master)
 # WunderAPI
-WunderAPI is a command line wrapper for the weather underground api.  WunderAPI requires an API key that is available from Weather Underground.  
+WunderAPI is a command line wrapper for the weather underground API.  WunderAPI requires an API key that is available from Weather Underground.  
 
     $weather --help
 
