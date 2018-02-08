@@ -97,7 +97,7 @@ def test_get_forecast_short():
 
 def test_format_date_date():
     api = setup()
-    assert_equals("June 29", api.format_date(mock_date_result(), "date"))
+    assert_equals("June 29", api.format_date(mock_date_result()))
 
 
 def test_format_date_date_empty():
@@ -106,8 +106,8 @@ def test_format_date_date_empty():
 
 
 def test_format_date_day():
-    api = setup()
-    assert_equals("Friday", api.format_date(mock_date_result(), "day"))
+    api = setup(date="day")
+    assert_equals("Friday", api.format_date(mock_date_result()))
 
 
 def test_passed_date_overides_config():
@@ -142,8 +142,8 @@ def test_format_temp_metric():
 
 
 def test_format_date_day_short():
-    api = setup()
-    assert_equals("Fri", api.format_date(mock_date_result(), "shortday"))
+    api = setup(date="shortday")
+    assert_equals("Fri", api.format_date(mock_date_result()))
 
 
 def test_get_wind_string_english():

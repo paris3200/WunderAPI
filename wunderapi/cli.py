@@ -1,26 +1,31 @@
-#!/usr/bin/env python
+""" This module provides a CLI for the weatherapi module."""
 import click
-from wunderapi.weather import Weather
 from terminaltables import SingleTable
+from wunderapi.weather import Weather
 
 
 def print_temp(api):
+    """ Prints temperate to terminal."""
     click.echo(api.get_temp())
 
 
 def print_conditions(api):
+    """ Prints conditions to terminal."""
     click.echo(api.get_conditions())
 
 
 def print_forecast(api):
+    """ Prints forecast to terminal."""
     print_table(api.get_forecast())
 
 
 def print_extended_forecast(api):
+    """ Prints extend forecast to terminal."""
     print_table(api.get_forecast(detail='extended'))
 
 
 def print_table(data):
+    """ Prints table to terminal."""
     table = SingleTable(data)
     click.echo(table.table)
 
@@ -57,4 +62,4 @@ def cli(conditions, forecast, temp, location, units, date, config_file,
 
 
 if __name__ == '__main__':
-        cli()
+    cli()

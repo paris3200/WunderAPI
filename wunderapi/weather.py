@@ -1,8 +1,11 @@
-#!/usr/bin/env python
-import requests
-import sys
+""" This module is a wrapper for the Weather Underground API.
 
+A Weather Underground developer API is required to use.
+"""
+import sys
+import requests
 from . config import Config
+
 
 
 class Weather():
@@ -35,9 +38,9 @@ class Weather():
     def get_result(self, view):
         """ Returns api result for view as a dictionary. """
         try:
-            r = requests.get(self.get_url(view))
-            return r.json()
-        except:
+            result = requests.get(self.get_url(view))
+            return result.json()
+        except requests.ConnectionError():
             print("\n \033[91m Error: Network connection not found. \n")
             sys.exit()
 
@@ -48,9 +51,9 @@ class Weather():
         if self.config.units == 'english':
             temp = result['current_observation']['temp_f']
             return "%s%sF" % (str(temp), u"\u00b0")
-        else:
-            temp = result['current_observation']['temp_c']
-            return "%s%sC" % (str(temp), u"\u00b0")
+
+        temp = result['current_observation']['temp_c']
+        return "%s%sC" % (str(temp), u"\u00b0")
 
     def get_conditions(self, result=None, ):
         """ Returns a multiline string summary of the current conditions. """
@@ -74,12 +77,12 @@ class Weather():
             return "Calm"
         if self.config.units == "english":
             return result['current_observation']['wind_string']
-        else:
-            # Weather Underground doesn't have a metric wind string
-            return ("From the %s at %s KPH Gusting to %s KPH" %
-                    (result['current_observation']['wind_dir'],
-                     result['current_observation']['wind_kph'],
-                     result['current_observation']['wind_gust_kph']))
+
+        # Weather Underground doesn't have a metric wind string
+        return ("From the %s at %s KPH Gusting to %s KPH" %
+                (result['current_observation']['wind_dir'],
+                 result['current_observation']['wind_kph'],
+                 result['current_observation']['wind_gust_kph']))
 
     def get_forecast(self, result=None, detail='simple'):
         """
@@ -94,7 +97,7 @@ class Weather():
         days = result['forecast']['simpleforecast']['forecastday']
 
         # Determine temp key
-        if (self.config.units == "metric"):
+        if self.config.units == "metric":
             temp_key = "celsius"
         else:
             temp_key = "fahrenheit"
@@ -116,34 +119,38 @@ class Weather():
 
     def format_temp(self, temp):
         """ Returns string containing temperature with units. """
-        if (self.config.units == "english"):
+        if self.config.units == "english":
             return "%s%sF" % (str(temp), u"\u00b0")
-        else:
-            return "%s%sC" % (str(temp), u"\u00b0")
 
-    def format_date(self, data, date_format=None):
-        """ Returns string of formatted date.
+        return "%s%sC" % (str(temp), u"\u00b0")
+
+    def format_date(self, data):
+        """ Returns string of formatted date based on date format.
             Example:
                 date     - November 12
                 day      - Thursday
-                shortday - Thur
 
         Keyword arguments:
-        data   -- a list
-        date_format  -- desired format (date, day, shortday)
+        data   -- a list containing result data
         """
-        if not date_format:
-            date_format  = self.config.date_format
-
-        if(date_format == "date"):
+        if self.config.date_format == "date":
             return data["monthname"] + " " + str(data["day"])
-        elif(date_format == "day"):
+        elif self.config.date_format == "day":
             return data["weekday"]
-        elif(date_format == "shortday"):
+        elif self.config.date_format == "shortday":
             return data["weekday_short"]
 
     def format_wind(self, data):
-        if (self.config.units == "english"):
+        """ Returns wind speed formatted based on units format.
+            Example:
+                english     - 10 MPH
+                metric      - 10 KPH
+
+        Keyword arguments:
+            data  -- a list containing result data
+        """
+
+        if self.config.units == "english":
             wind = "%s MPH" % (data['avewind']['mph'])
         else:
             wind = "%s KPH" % (data['avewind']['kph'])

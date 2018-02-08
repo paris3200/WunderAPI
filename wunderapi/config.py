@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+""" Provides the configuration for the weather module. """
 import configparser
 import os
 import errno
