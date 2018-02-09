@@ -18,3 +18,23 @@ Install the requirements using Pip. ::
 Finally install WunderAPI. ::
 
     python setup.py install
+
+Configuration
+=============
+
+The configuration file should be created in '~/.config/wunderapi/config'.  The
+file will be automitcally generated on the first run of the program if it
+doesn't exist.  It should take the following formart. ::
+
+    [default]
+    api_key = API_KEY
+    date_format = shortday
+    units = english
+    location = 27043
+
+If you don't want to set the api_key in the configuration file you can set it
+as the environment variable 'WEATHER_API_KEY'.  This is useful if you keep your
+configs in a public git repository.  
+
+The api_key can be obtained from https://www.wunderground.com/weather/api.
+
