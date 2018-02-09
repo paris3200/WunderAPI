@@ -14,10 +14,11 @@ class Weather():
     """
     def __init__(self, config_file=None, location=None, units=None, date=None):
         """
-        :param config_file: Config file location
-        :param location: Zipcode of weatherstation.
-        :param units: Units for results {english, metric}
-        :param units: Format for date results. {date, day, shortday}
+        Args:
+            config_file: Config file location
+            location: Zipcode of weatherstation.
+            units: Units for results {english, metric}
+            units: Format for date results. {date, day, shortday}
         """
         self.config = Config(config_file)
         if location:
@@ -28,8 +29,12 @@ class Weather():
             self.config.date_format = date
 
     def get_url(self, view):
-        """ Returns a url for the api formatted for the specific view."""
-        view = view
+        """ Formats the url required to retrieve the specific view.
+        Args:
+            view: The view that is being requested.
+        Returns:
+            A url for the api request.
+        """
         url = "http://api.wunderground.com/api/%s/%s/q/%s.json" % \
             (self.config.api_key, view, self.config.location)
         return url
@@ -124,13 +129,19 @@ class Weather():
         return "%s%sC" % (str(temp), u"\u00b0")
 
     def format_date(self, data):
-        """ Returns string of formatted date based on date format.
-            Example:
-                date     - November 12
-                day      - Thursday
+        """ Formats the date string.
 
-        Keyword arguments:
-        data   -- a list containing result data
+        Args:
+            data   -- a list containing result data
+
+        Returns:
+            String containing the formatted date based on the
+            config.date_format.
+
+            Example:
+                date        - November 12
+                day         - Thursday
+                shortday    - Friday
         """
         if self.config.date_format == "date":
             return data["monthname"] + " " + str(data["day"])
@@ -140,13 +151,18 @@ class Weather():
             return data["weekday_short"]
 
     def format_wind(self, data):
-        """ Returns wind speed formatted based on units format.
+        """ Formats the wind string
+
+        Args:
+            data  -- a list containing result data
+
+        Returns:
+            String containing a formated wind string based on the
+            config.units.
+
             Example:
                 english     - 10 MPH
                 metric      - 10 KPH
-
-        Keyword arguments:
-            data  -- a list containing result data
         """
 
         if self.config.units == "english":
