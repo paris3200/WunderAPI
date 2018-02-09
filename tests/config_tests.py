@@ -17,7 +17,5 @@ def test_parse_config_with_incorrect_parms():
 def test_config_created_with_default_parms():
     config = setup()
     config.parse_config()
-    assert_equal(config.api_key, 'API Key')
-    assert_equal(config.location, 'Zipcode')
     assert_equal(config.date_format, 'date')
     assert_equal(config.units, 'english')
