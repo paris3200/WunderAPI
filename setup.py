@@ -7,7 +7,7 @@ print(find_packages())
 
 setup(
     name="wunderapi",
-    version='0.1',
+    version='1.0',
     description='A wrapper for the Weather Underground Rest API.',
     author='Jason Paris',
     author_email='paris3200@gmail.com',
