@@ -9,17 +9,16 @@ from . config import Config
 
 class Weather():
     """
-    Weather Underground API wrapper.  Requires a developer api_key from weather
-    underground.
+    Weather Underground API wrapper.  Settings are read in from the config
+    file.  Any parameters passed override the config file.
+
+    Args:
+        config_file: Path to config file.
+        location: Zipcode of weatherstation.
+        units: Units for results {english, metric}
+        date: Format for date results. {date, day, shortday}
     """
     def __init__(self, config_file=None, location=None, units=None, date=None):
-        """
-        Args:
-            config_file: Config file location
-            location: Zipcode of weatherstation.
-            units: Units for results {english, metric}
-            units: Format for date results. {date, day, shortday}
-        """
         self.config = Config(config_file)
         if location:
             self.config.location = location
@@ -30,8 +29,10 @@ class Weather():
 
     def get_url(self, view):
         """ Formats the url required to retrieve the specific view.
+
         Args:
             view: The view that is being requested.
+
         Returns:
             A url for the api request.
         """
@@ -40,7 +41,14 @@ class Weather():
         return url
 
     def get_result(self, view):
-        """ Returns api result for view as a dictionary. """
+        """ Gets the result of the API call.
+
+        Args:
+            view: The view that is being requested
+
+        Returns:
+            A dictionary containing the decoded json result.
+        """
         try:
             result = requests.get(self.get_url(view))
             return result.json()
@@ -49,7 +57,11 @@ class Weather():
             sys.exit()
 
     def get_temp(self, result=None):
-        """ Returns the current observation temperature. """
+        """
+        Returns:
+            The current observation temperature.
+        """
+        # TODO Refactor to use format_temp()
         if not result:
             result = self.get_result('conditions')
         if self.config.units == 'english':
@@ -60,7 +72,10 @@ class Weather():
         return "%s%sC" % (str(temp), u"\u00b0")
 
     def get_conditions(self, result=None, ):
-        """ Returns a multiline string summary of the current conditions. """
+        """
+        Returns:
+            A multiline string summary of the current conditions.
+        """
         if not result:
             result = self.get_result('conditions')
 
@@ -75,7 +90,13 @@ class Weather():
         return conditions
 
     def get_wind_string(self, result=None):
-        """ Returns a formatted wind string based on unit type. """
+        """
+        Returns:
+            A string containing the current wind conditions
+
+            Example:
+                From the west at 5 KPH Gusting to 15 KPH
+        """
         # Calm based on the Beaufort Scale for light air.
         if result['current_observation']['wind_mph'] <= 3.4:
             return "Calm"
@@ -89,9 +110,15 @@ class Weather():
                  result['current_observation']['wind_gust_kph']))
 
     def get_forecast(self, result=None, detail='simple'):
-        """
-        Returns an array of the forecast with the first element containing
-        the table headings.
+        """ Gets the forcast array.
+
+        Args:
+            result: A dictionary containing the results from the API.
+            detail: Which forecast view to obtain.  Simple returns a 4 day
+                    forecast.  Extended returns a 10 day forecast.
+        Returns:
+            An array of the forecast with the first element containing
+            the table headings.
         """
         if not result:
             if detail == 'extended':
@@ -122,7 +149,16 @@ class Weather():
         return forecast
 
     def format_temp(self, temp):
-        """ Returns string containing temperature with units. """
+        """ Formats the temperature string.
+
+        Args:
+            temp: Temperature to be formatted
+        Returns:
+            Formatted string with degree symbol and units.
+
+            Example:
+                * 32\u00b0F
+        """
         if self.config.units == "english":
             return "%s%sF" % (str(temp), u"\u00b0")
 
@@ -132,16 +168,16 @@ class Weather():
         """ Formats the date string.
 
         Args:
-            data   -- a list containing result data
+            data: A list containing result data
 
         Returns:
             String containing the formatted date based on the
             config.date_format.
 
             Example:
-                date        - November 12
-                day         - Thursday
-                shortday    - Friday
+                * date        - November 12
+                * day         - Thursday
+                * shortday    - Friday
         """
         if self.config.date_format == "date":
             return data["monthname"] + " " + str(data["day"])
@@ -154,15 +190,15 @@ class Weather():
         """ Formats the wind string
 
         Args:
-            data  -- a list containing result data
+            data:  A list containing result data
 
         Returns:
             String containing a formated wind string based on the
             config.units.
 
             Example:
-                english     - 10 MPH
-                metric      - 10 KPH
+                * english     - 10 MPH
+                * metric      - 10 KPH
         """
 
         if self.config.units == "english":
