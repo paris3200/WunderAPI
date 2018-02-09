@@ -2,7 +2,10 @@
 [![Documentation Status](https://readthedocs.org/projects/wunderapi/badge/?version=latest)](http://wunderapi.readthedocs.io/en/latest/?badge=latest)
 
 # WunderAPI
-WunderAPI is a command line wrapper for the weather underground API.  WunderAPI requires an API key that is available from Weather Underground.  
+WunderAPI is a command line wrapper for the weather underground API.  It
+formats data from the API and displays it in the terminal.
+
+WunderAPI requires an API key that is available from Weather Underground.  
 
     $ weather --help
 
