@@ -61,15 +61,15 @@ class Weather():
         Returns:
             The current observation temperature.
         """
-        # TODO Refactor to use format_temp()
         if not result:
             result = self.get_result('conditions')
+
         if self.config.units == 'english':
             temp = result['current_observation']['temp_f']
-            return "%s%sF" % (str(temp), u"\u00b0")
+        else:
+            temp = result['current_observation']['temp_c']
 
-        temp = result['current_observation']['temp_c']
-        return "%s%sC" % (str(temp), u"\u00b0")
+        return self.format_temp(temp)
 
     def get_conditions(self, result=None, ):
         """
