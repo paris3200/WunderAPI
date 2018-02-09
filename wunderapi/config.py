@@ -34,10 +34,15 @@ class Config():
         self.units = config[profile]['units']
         self.date_format = config[profile]['date_format']
 
+        # If enviroment variable exist for api_key, use it.
+        if os.environ['WEATHER_API_KEY']:
+            self.api_key = os.environ['WEATHER_API_KEY']
+
+
     def create_config(self):
         """ Creates the config file. """
         config = configparser.ConfigParser()
-        config['default'] = {'api_key': 'API Key',
+        config['default'] = {'api_key': os.environ['WEATHER_API_KEY'],
                              'location': 'Zipcode',
                              'date_format': 'date',
                              'units': 'english'}
