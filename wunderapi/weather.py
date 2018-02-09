@@ -114,8 +114,8 @@ class Weather():
 
         Args:
             result: A dictionary containing the results from the API.
-            detail: Which forecast view to obtain.  Simple returns a 4 day
-                    forecast.  Extended returns a 10 day forecast.
+            detail: Which forecast view to obtain.  'Simple' returns a 4 day
+                    forecast.  'Extended' returns a 10 day forecast.
         Returns:
             An array of the forecast with the first element containing
             the table headings.
