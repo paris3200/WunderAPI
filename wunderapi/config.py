@@ -43,7 +43,7 @@ class Config():
         """ Creates the config file. """
         config = configparser.ConfigParser()
         config['default'] = {'api_key': os.environ['WEATHER_API_KEY'],
-                             'location': 'Zipcode',
+                             'location': '27607',
                              'date_format': 'date',
                              'units': 'english'}
 
