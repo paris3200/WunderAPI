@@ -16,6 +16,5 @@ def test_parse_config_with_incorrect_parms():
 
 def test_config_created_with_default_parms():
     config = setup_with_config_file()
-    config.parse_config()
     assert_equal(config.date_format, 'date')
     assert_equal(config.units, 'english')
