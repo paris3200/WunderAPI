@@ -48,6 +48,7 @@ class Config():
                 )
         except AttributeError as err:
             print(err)
+            sys.exit(1)
 
 
     def create_config(self):
