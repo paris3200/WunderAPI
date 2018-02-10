@@ -27,7 +27,7 @@ file will be automitcally generated on the first run of the program if it
 doesn't exist.  It should take the following format. ::
 
     [default]
-    api_key = API_KEY
+    api_key = api_key
     date_format = shortday
     units = english
     location = 27043
