@@ -1,5 +1,5 @@
 """ Provides the configuration for the weather module. """
-import configparser
+from configparser import ConfigParser
 import os
 import sys
 import errno
@@ -20,7 +20,6 @@ class Config():
 
         # Get the absolute file path
         self.config_file = os.path.expanduser(config_file)
-        self.config_dir = os.path.dirname(config_file)
         if not os.path.isfile(self.config_file):
             self.create_config()
 
@@ -28,7 +27,7 @@ class Config():
 
     def parse_config(self, profile='default'):
         """ Reads the config file and imports settings. """
-        config = configparser.ConfigParser()
+        config = ConfigParser()
         config.read(self.config_file)
         self.location = config[profile]['location']
         self.units = config[profile]['units']
@@ -49,12 +48,11 @@ class Config():
                 )
         except AttributeError as err:
             print(err)
-            sys.exit(1)
-
+            sys.exit()
 
     def create_config(self):
         """ Creates the config file. """
-        config = configparser.ConfigParser()
+        config = ConfigParser()
         config['default'] = {'api_key': 'api_key',
                              'location': '27607',
                              'date_format': 'date',
@@ -75,4 +73,5 @@ class Config():
         except OSError as exc:
             if exc.errno == errno.EEXIST and os.path.isdir(directory):
                 pass
-            else: raise
+            else:
+                raise
