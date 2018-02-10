@@ -22,8 +22,8 @@ class Config():
         self.config_dir = os.path.dirname(config_file)
         if not os.path.isfile(self.config_file):
             self.create_config()
-        else:
-            self.parse_config()
+
+        self.parse_config()
 
     def parse_config(self, profile='default'):
         """ Reads the config file and imports settings. """
@@ -32,13 +32,23 @@ class Config():
         self.location = config[profile]['location']
         self.units = config[profile]['units']
         self.date_format = config[profile]['date_format']
+        self.api_key = config[profile]['api_key']
 
         # If enviroment variable exist for api_key, use it.
         try:
             os.environ['WEATHER_API_KEY']
             self.api_key = os.environ['WEATHER_API_KEY']
         except KeyError:
-            self.api_key = config[profile]['api_key']
+            pass
+
+        try:
+            if self.api_key == 'api_key':
+                raise AttributeError(
+                    'API_KEY not set in config file or environment.'
+                )
+        except AttributeError as err:
+            print(err)
+
 
     def create_config(self):
         """ Creates the config file. """
