@@ -8,11 +8,12 @@ class TestConfig(unittest.TestCase):
     def setup_with_default_config_file(self):
         return Config(config_file="tests/resources/test_config")
 
-    def test_parse_config_with_correct_parms(self):
-        pass
-
-    def test_parse_config_with_incorrect_parms(self):
-        pass
+    def test_config_read_from_file(self):
+        config = Config(config_file="tests/resources/test_custom_config")
+        self.assertEqual('english', config.units)
+        self.assertEqual('12345', config.api_key)
+        self.assertEqual('27607', config.location)
+        self.assertEqual('date', config.date_format)
 
     def test_config_created_with_default_parms_raises_excpetion(self):
         with self.assertRaises(SystemExit) as cm:
