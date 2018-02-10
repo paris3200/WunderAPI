@@ -32,14 +32,16 @@ class Config():
         self.location = config[profile]['location']
         self.units = config[profile]['units']
         self.date_format = config[profile]['date_format']
-        self.api_key = config[profile]['api_key']
 
-        # If enviroment variable exist for api_key, use it.
-        try:
-            os.environ['WEATHER_API_KEY']
-            self.api_key = os.environ['WEATHER_API_KEY']
-        except KeyError:
-            pass
+        if config[profile]['api_key'] is not 'WEATHER_API_KEY':
+            self.api_key = config[profile]['api_key']
+        else:
+            # If enviroment variable exist for api_key, use it.
+            try:
+                os.environ['WEATHER_API_KEY']
+                self.api_key = os.environ['WEATHER_API_KEY']
+            except KeyError:
+                pass
 
         try:
             if self.api_key == 'api_key':
