@@ -29,20 +29,21 @@ class Config():
         """ Reads the config file and imports settings. """
         config = configparser.ConfigParser()
         config.read(self.config_file)
-        self.api_key = config[profile]['api_key']
         self.location = config[profile]['location']
         self.units = config[profile]['units']
         self.date_format = config[profile]['date_format']
 
         # If enviroment variable exist for api_key, use it.
-        if os.environ['WEATHER_API_KEY']:
+        try:
+            os.environ['WEATHER_API_KEY']
             self.api_key = os.environ['WEATHER_API_KEY']
-
+        except KeyError:
+            self.api_key = config[profile]['api_key']
 
     def create_config(self):
         """ Creates the config file. """
         config = configparser.ConfigParser()
-        config['default'] = {'api_key': os.environ['WEATHER_API_KEY'],
+        config['default'] = {'api_key': 'api_key',
                              'location': '27607',
                              'date_format': 'date',
                              'units': 'english'}
