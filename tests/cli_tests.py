@@ -1,44 +1,44 @@
-from nose.tools import assert_in
-
+import unittest
 from wunderapi.cli import cli
-
 from click.testing import CliRunner
 
 
-def setup():
-    runner = CliRunner()
-    return runner
+class TestCLI(unittest.TestCase):
+
+    def setup(self):
+        runner = CliRunner()
+        return runner
 
 
-def test_print_temp():
-    runner = setup()
-    result = runner.invoke(cli, ['--temp'])
-    #assert result.exit_code == 0
-    #assert_in('F',  result.output)
+    def test_print_temp(self):
+        runner = self.setup()
+        result = runner.invoke(cli, ['--temp'])
+        #self.assert result.exit_code == 0
+        #self.assertIn('F',  result.output)
 
 
-def test_print_conditions():
-    runner = setup()
-    result = runner.invoke(cli, ['--conditions'])
-    assert result.exit_code == 0
-    assert_in('Current weather',  result.output)
+    def test_print_conditions(self):
+        runner = self.setup()
+        result = runner.invoke(cli, ['--conditions'])
+        self.assertEqual(result.exit_code,  0)
+        self.assertIn('Current weather',  result.output)
 
 
-def test_print_forecast():
-    runner = setup()
-    result = runner.invoke(cli, ['--forecast'])
-    assert result.exit_code == 0
-    assert_in('Date',  result.output)
-    assert_in('Condition',  result.output)
-    assert_in('Rain Chance',  result.output)
-    assert_in('Temp',  result.output)
+    def test_print_forecast(self):
+        runner = self.setup()
+        result = runner.invoke(cli, ['--forecast'])
+        self.assertEqual(result.exit_code, 0)
+        self.assertIn('Date',  result.output)
+        self.assertIn('Condition',  result.output)
+        self.assertIn('Rain Chance',  result.output)
+        self.assertIn('Temp',  result.output)
 
 
-def test_print_extended_forecast():
-    runner = setup()
-    result = runner.invoke(cli, ['--extended'])
-    assert result.exit_code == 0
-    assert_in('Date',  result.output)
-    assert_in('Condition',  result.output)
-    assert_in('Rain Chance',  result.output)
-    assert_in('Temp',  result.output)
+    def test_print_extended_forecast(self):
+        runner = self.setup()
+        result = runner.invoke(cli, ['--extended'])
+        self.assertEqual(result.exit_code, 0)
+        self.assertIn('Date',  result.output)
+        self.assertIn('Condition',  result.output)
+        self.assertIn('Rain Chance',  result.output)
+        self.assertIn('Temp',  result.output)
