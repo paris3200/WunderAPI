@@ -4,6 +4,7 @@ A Weather Underground developer API is required to use.
 """
 import sys
 import requests
+from requests.exceptions import ConnectionError
 from . config import Config
 
 
@@ -52,7 +53,7 @@ class Weather():
         try:
             result = requests.get(self.get_url(view))
             return result.json()
-        except requests.ConnectionError():
+        except ConnectionError():
             print("\n \033[91m Error: Network connection not found. \n")
             sys.exit()
 
