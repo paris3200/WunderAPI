@@ -11,7 +11,7 @@ class TestConfig(unittest.TestCase):
     def test_config_read_from_file(self):
         config = Config(config_file="tests/resources/test_custom_config")
         self.assertEqual('english', config.units)
-        self.assertEqual('12345', config.api_key)
+        self.assertEqual('api_key', config.api_key)
         self.assertEqual('27607', config.location)
         self.assertEqual('date', config.date_format)
 

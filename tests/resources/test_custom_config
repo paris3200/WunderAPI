@@ -2,5 +2,5 @@
 units = english
 date_format = date
 location = 27607
-api_key = 12345
+api_key = api_key
 
