@@ -16,7 +16,7 @@ class Config():
     def __init__(self, config_file=None):
 
         if not config_file:
-            config_file = "~/.config/wunderapi/config"
+            config_file = "~/.config/weather/config"
 
         # Get the absolute file path
         self.config_file = os.path.expanduser(config_file)
