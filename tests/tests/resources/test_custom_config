@@ -1,0 +1,6 @@
+[default]
+api_key = api_key
+location = 27607
+date_format = date
+units = english
+

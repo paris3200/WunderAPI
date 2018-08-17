@@ -1,7 +1,7 @@
 import unittest
 from nose.tools import nottest
 
-from wunderapi.config import Config
+from weather.config import Config
 
 
 class TestConfig(unittest.TestCase):

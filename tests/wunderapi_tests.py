@@ -1,5 +1,5 @@
 from nose.tools import assert_equals, assert_equal
-from wunderapi.weather import Weather
+from weather.weather import Weather
 import json
 
 

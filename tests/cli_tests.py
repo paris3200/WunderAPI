@@ -1,5 +1,5 @@
 import unittest
-from wunderapi.cli import cli
+from weather.cli import cli
 from click.testing import CliRunner
 
 

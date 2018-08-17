@@ -6,8 +6,8 @@ except ImportError:
 print(find_packages())
 
 setup(
-    name="wunderapi",
-    version='1.0',
+    name="Weather",
+    version='1.0.2',
     description='A wrapper for the Weather Underground Rest API.',
     author='Jason Paris',
     author_email='paris3200@gmail.com',
@@ -17,6 +17,6 @@ setup(
     install_requires=['Click', 'Requests', 'terminaltables'],
     test_suite='nose.collector',
     entry_points={
-        'console_scripts': ['weather = wunderapi.cli:cli'],
+        'console_scripts': ['weather = weather.cli:cli'],
         }
 )

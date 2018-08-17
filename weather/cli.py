@@ -1,7 +1,7 @@
 """ This module provides a CLI for the weatherapi module."""
 import click
 from terminaltables import SingleTable
-from wunderapi.weather import Weather
+from weather.weather import Weather
 
 
 def print_temp(api):

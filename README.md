@@ -1,11 +1,11 @@
 [![Build Status](https://travis-ci.org/paris3200/WunderAPI.svg?branch=master)](https://travis-ci.org/paris3200/WunderAPI) [![Coverage Status](https://coveralls.io/repos/github/paris3200/WunderAPI/badge.svg?branch=master)](https://coveralls.io/github/paris3200/WunderAPI?branch=master)
 [![Documentation Status](https://readthedocs.org/projects/wunderapi/badge/?version=latest)](http://wunderapi.readthedocs.io/en/latest/?badge=latest)
 
-# WunderAPI
-WunderAPI is a command line wrapper for the weather underground API.  It
-formats data from the API and displays it in the terminal.
+# Weather
+Weather is a command line wrapper for the weather underground API written in python.  It
+formats data from the API and displays it in the terminal in easy to read tables.
 
-WunderAPI requires an API key that is available from Weather Underground.  
+Weather requires an API key that is available from Weather Underground.  
 
     $ weather --help
 
