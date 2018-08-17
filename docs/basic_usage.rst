@@ -1,7 +1,7 @@
 Basic Usage
 ===========
 
-WunderAPI can be ran using the *weather* command.  The help function shows
+Weather can be ran using the *weather* command.  The help function shows
 which options are available. 
 
 .. code-block:: bash

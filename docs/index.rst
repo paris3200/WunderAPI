@@ -1,7 +1,7 @@
-WunderAPI Documentation
+Weather Documentation
 =====================================
 
-WunderAPI is a command line wrapper for the weather underground API that
+Weather is a command line wrapper for the weather underground API that
 returns the information formatted for the terminal. The forecast are formatted
 in a table.  
 

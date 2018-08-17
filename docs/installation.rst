@@ -2,13 +2,13 @@
 Installation
 ============
 
-It is recommended that you install WunderAPI in a virtual environment to
+It is recommended that you install Weather in a virtual environment to
 prevent conflicts with other python packages.  First create the virtual
 environment, activate it, and follow the install directions below.
 
-To install WeatherAPI begin by cloning the repo and changing to the directory. ::
+To install Weather begin by cloning the repo and changing to the directory. ::
 
-    git clone https://github.com/paris3200/wunderapi.git
+    git clone https://github.com/paris3200/weather.git
     cd wunderapi
 
 Install the requirements using Pip. ::
@@ -22,7 +22,7 @@ Finally install WunderAPI. ::
 Configuration
 =============
 
-The configuration file should be created in '~/.config/wunderapi/config'.  The
+The configuration file should be created in '~/.config/weather/config'.  The
 file will be automitcally generated on the first run of the program if it
 doesn't exist.  It should take the following format. ::
 
