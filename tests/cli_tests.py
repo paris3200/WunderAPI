@@ -42,3 +42,10 @@ class TestCLI(unittest.TestCase):
         self.assertIn('Condition',  result.output)
         self.assertIn('Rain Chance',  result.output)
         self.assertIn('Temp',  result.output)
+
+    def test_default_prints_condition(self):
+        runner = self.setup()
+        result = runner.invoke(cli)
+        self.assertEqual(result.exit_code,  0)
+        self.assertIn('Current weather',  result.output)
+

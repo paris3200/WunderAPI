@@ -60,6 +60,9 @@ def cli(conditions, forecast, temp, location, units, date, config_file,
     if temp:
         print_temp(api)
 
+    if not conditions and not forecast and not extended and not temp:
+        print_conditions(api)
+
 
 if __name__ == '__main__':
     cli()
