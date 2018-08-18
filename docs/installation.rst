@@ -22,8 +22,9 @@ Finally install WunderAPI. ::
 Configuration
 =============
 
-The configuration file should be created in '~/.config/weather/config'.  The
-file will be automitcally generated on the first run of the program if it
+The configuration file is created in $XDG_CONFIG_HOME/weather/config. On most
+systems this means the config file is located at '~/.config/weather/config'.
+The file will be automitcally generated on the first run of the program if it
 doesn't exist.  It should take the following format. ::
 
     [default]
