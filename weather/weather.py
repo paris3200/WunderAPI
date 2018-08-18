@@ -182,9 +182,9 @@ class Weather():
         """
         if self.config.date_format == "date":
             return data["monthname"] + " " + str(data["day"])
-        elif self.config.date_format == "day":
+        if self.config.date_format == "day":
             return data["weekday"]
-        elif self.config.date_format == "shortday":
+        if self.config.date_format == "shortday":
             return data["weekday_short"]
 
     def format_wind(self, data):
