@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import patch
 from nose.tools import nottest
 
 from weather.config import Config
@@ -25,3 +26,11 @@ class TestConfig(unittest.TestCase):
         with self.assertRaises(SystemExit) as cm:
             self.setup_with_default_config_file()
         self.assertEqual(cm.exception.code, None)
+
+    def test_config_directory_uses_XDG_CONFIG_HOME(self):
+        with patch.dict('os.environ', {'XDG_CONFIG_HOME': 'tests/resources/'}):
+            config =Config()
+            self.assertEqual('english', config.units)
+            self.assertEqual('28621', config.location)
+            self.assertEqual('date', config.date_format)
+

@@ -15,8 +15,13 @@ class Config():
 
     def __init__(self, config_file=None):
 
+        xdg_config = os.environ.get('XDG_CONFIG_HOME')
+
         if not config_file:
-            config_file = "~/.config/weather/config"
+            if not xdg_config:
+                config_file = "~/.config/weather/config"
+            else:
+                config_file = xdg_config + "/weather/config"
 
         # Get the absolute file path
         self.config_file = os.path.expanduser(config_file)
