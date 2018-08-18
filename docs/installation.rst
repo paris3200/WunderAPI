@@ -15,7 +15,7 @@ Install the requirements using Pip. ::
 
     pip install -r requirements.txt
 
-Finally install WunderAPI. ::
+Finally install Weather. ::
 
     python setup.py install
 
