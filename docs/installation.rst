@@ -9,7 +9,7 @@ environment, activate it, and follow the install directions below.
 To install Weather begin by cloning the repo and changing to the directory. ::
 
     git clone https://github.com/paris3200/weather.git
-    cd wunderapi
+    cd weather
 
 Install the requirements using Pip. ::
 
